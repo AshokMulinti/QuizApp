@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Questions</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Heading style */
+        h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Styling the table */
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Table headers */
+        th {
+            background-color: #007bff;
+            color: #fff;
+            text-align: left;
+            padding: 15px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* Table rows */
+        tr {
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Zebra striping */
+        tr:nth-child(even) {
+            background-color: #e8f4f8;
+        }
+
+        /* Table cells */
+        td {
+            padding: 15px;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        /* Hover effect on table rows */
+        tr:hover {
+            background-color: #d1e7f2;
+        }
+
+        /* Options under "Options" cell in a structured list */
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        /* Styling action buttons */
+        a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff6f61;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            background-color: #ff3e30;
+        }
+
+        /* Container for actions */
+        .action-buttons {
+            display: flex;
+            gap: 10px; /* Ensures buttons are side by side with space between */
+        }
+
+        /* Add button */
+        .add-button {
+            display: inline-block;
+            background-color: #28a745;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 30px;
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .add-button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        /* Responsive table for smaller screens */
+        @media (max-width: 600px) {
+            table, tr, td, th {
+                font-size: 0.85rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column; /* Stack buttons vertically on small screens */
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Manage Questions</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Question</th>
+        <th>Options</th>
+        <th>Right Answer</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${questions}">
+        <td th:text="${question.id}"></td>
+        <td th:text="${question.questionTitle}"></td>
+        <td>
+            <ul>
+                <li th:text="${question.option1}"></li>
+                <li th:text="${question.option2}"></li>
+                <li th:text="${question.option3}"></li>
+                <li th:text="${question.option4}"></li>
+            </ul>
+        </td>
+        <td th:text="${question.rightAnswer}"></td>
+        <td>
+            <div class="action-buttons">
+                <a th:href="@{/admin/questions/edit/{id}(id=${question.id})}">Edit</a>
+                <a th:href="@{/admin/questions/delete/{id}(id=${question.id})}">Delete</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a class="add-button" th:href="@{/admin/questions/add}">Add New Question</a>
+
+</body>
+</html>

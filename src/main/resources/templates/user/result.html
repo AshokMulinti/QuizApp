@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz Results</title>
+    <style>
+        /* Gradient Background for Score Section */
+        .score-section {
+            background: linear-gradient(180deg, #a2d9ff, #74b9ff, #0984e3);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 50%;
+        }
+
+        .score-section h2, .score-section p {
+            margin: 10px 0;
+        }
+
+        /* Submission Time and Percentage Styling */
+        .result-details {
+            font-size: 18px;
+            color: #636e72;
+            margin-top: 10px;
+        }
+
+        /* Hover effect for score section */
+        .score-section:hover {
+            background: linear-gradient(180deg, #74b9ff, #0984e3, #005f9e);
+        }
+    </style>
+</head>
+<body>
+
+<div class="score-section">
+    <h2>Quiz Results</h2>
+    <p><strong>Score:</strong> <span th:text="${score}"></span> / <span th:text="${totalQuestions}"></span></p>
+    <p class="result-details"><strong>Submission Time:</strong>
+        <span th:text="${submissionTime}"></span>
+    </p>
+    <p class="result-details"><strong>Percentage:</strong> <span th:text="${percentage}"></span>%</p>
+</div>
+
+</body>
+</html>

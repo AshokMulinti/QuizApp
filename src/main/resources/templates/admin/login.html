@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        /* Container for the login form */
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Title styling */
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            font-weight: 500;
+            text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form field styling */
+        label {
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+        }
+
+        /* Button styling */
+        button {
+            padding: 12px 20px;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #ff3e30;
+        }
+
+        /* Error message styling */
+        .error {
+            color: #ff4d4d;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h1>Admin Login</h1>
+    <form th:action="@{/admin/login}" method="post">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+        <button type="submit">Login</button>
+
+        <!-- Error message -->
+<!--        <div th:if="${error}" class="error">${error}</div>-->
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+    </form>
+</div>
+
+</body>
+</html>

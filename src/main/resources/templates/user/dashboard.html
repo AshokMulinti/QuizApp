@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <style>
+        /* General styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #56CCF2, #2F80ED);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.2em;
+        }
+
+        h2 {
+            font-size: 1.4em;
+            margin-bottom: 1em;
+            color: #ddd;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 15px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 12px 24px;
+            border-radius: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
+
+        a[href*="create"] {
+            background: #FF6B6B;
+        }
+
+        a[href*="view"] {
+            background: #4ECDC4;
+        }
+
+        a[href*="download"] {
+            background: #FFD93D;
+            color: #333;
+        }
+
+        a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        a:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        input[type="email"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+            margin-right: 10px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to the Dashboard</h1>
+    <h2>What would you like to do?</h2>
+    <ul>
+        <li><a href="/user/createQuizz">Create Quiz</a></li>
+        <li><a href="/user/toppers">View Toppers</a></li>
+        <li>
+            <input type="email" id="emailInput" placeholder="Enter your email" required>
+            <a href="#" onclick="downloadCertificate()">Download Certificate</a>
+        </li>
+        <li><a href="/user/preparation">Preparation</a></li>
+    </ul>
+</div>
+
+<script>
+    function downloadCertificate() {
+        const email = document.getElementById("emailInput").value;
+        if (email) {
+            fetch(`/user/download?email=${encodeURIComponent(email)}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.blob().then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'certificate.pdf';
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                        });
+                    } else {
+                        response.text().then(text => {
+                            alert(text); // Alert the user with the error message
+                        });
+                    }
+                })
+                .catch(error => {
+                    alert("An unexpected error occurred. Please try again later.");
+                });
+        } else {
+            alert("Please enter a valid email address.");
+        }
+    }
+</script>
+</body>
+</html>

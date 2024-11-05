@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Top Scorers</title>
+    <style>
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Top Scorers</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Email</th>
+            <th>Score</th>
+            <th>Total Questions</th>
+            <th>Percentage</th> <!-- Added Percentage column -->
+            <th>Submission Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate through the 'toppers' list and display data -->
+        <tr th:each="result, iterStat : ${toppers}">
+            <td th:text="${iterStat.index + 1}">1</td> <!-- Rank -->
+            <td th:text="${result.email}">user@example.com</td>
+            <td th:text="${result.score}">100</td>
+            <td th:text="${result.totalQuestions}">20</td>
+            <td th:text="${result.percentage}">100.0</td> <!-- Display Percentage -->
+            <td th:text="${result.formattedSubmissionTime}">01-11-2023 14:30:00</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

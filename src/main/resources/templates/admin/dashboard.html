@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0); /* Beautiful gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #ffffff;
+        }
+
+        /* Dashboard container with shadow, border radius, and gradient background */
+        .dashboard-container {
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent */
+            backdrop-filter: blur(10px); /* Glassmorphism effect */
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Soft shadow */
+            text-align: center;
+            width: 400px;
+            color: #ffffff;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Title styling with more elegant font */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Title shadow */
+        }
+
+        /* Button styling for the link */
+        a {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            background: linear-gradient(45deg, #ff6f61, #ff3e30); /* Gradient button */
+            padding: 15px 30px;
+            border-radius: 50px; /* Rounded, pill-shaped button */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Button shadow */
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background: linear-gradient(45deg, #ff3e30, #ff6f61);
+            transform: scale(1.05); /* Slightly enlarge the button on hover */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* More prominent shadow on hover */
+        }
+
+        /* Fade-in animation for the container */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) {
+            .dashboard-container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            a {
+                font-size: 1.1rem;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <h1>Admin Dashboard</h1>
+    <a th:href="@{/admin/questions}">Manage Questions</a>
+</div>
+
+</body>
+</html>

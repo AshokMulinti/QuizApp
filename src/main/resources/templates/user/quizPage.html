@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .question {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+
+        label {
+            font-size: 1em;
+            color: #555;
+            display: block;
+            margin: 5px 0;
+            padding-left: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #357abd;
+        }
+
+        /* Styling for the note above the email input */
+        .note {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Quiz</h1>
+
+    <form th:action="@{/user/submitQuiz}" method="post">
+        <!-- Optional email input for storing in QuizResult -->
+        <div>
+            <label class="note">If you want to store progress, enter your email here:</label>
+            <input type="email" name="email" placeholder="Enter your email">
+        </div>
+
+        <!-- Loop through questions and render each one -->
+        <div th:each="question : ${questions}" class="question">
+            <h3 th:text="${question.questionTitle}">Question Title</h3>
+
+            <label>
+                <input type="radio" th:name="'answers[' + ${question.id} + ']'" th:value="${question.option1}">
+                <span th:text="${question.option1}">Option 1</span>
+            </label>
+
+            <label>
+                <input type="radio" th:name="'answers[' + ${question.id} + ']'" th:value="${question.option2}">
+                <span th:text="${question.option2}">Option 2</span>
+            </label>
+
+            <label>
+                <input type="radio" th:name="'answers[' + ${question.id} + ']'" th:value="${question.option3}">
+                <span th:text="${question.option3}">Option 3</span>
+            </label>
+
+            <label>
+                <input type="radio" th:name="'answers[' + ${question.id} + ']'" th:value="${question.option4}">
+                <span th:text="${question.option4}">Option 4</span>
+            </label>
+        </div>
+
+        <button type="submit" class="submit-button">Submit Quiz</button>
+    </form>
+
+</div>
+</body>
+</html>

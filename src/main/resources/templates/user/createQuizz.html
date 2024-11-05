@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Quiz</title>
+    <style>
+        /* General styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #FF5733, #900C3F);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Centered container for content */
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Styling the title */
+        h1 {
+            font-size: 2em;
+            margin-bottom: 1em;
+        }
+
+        /* Styling for labels and inputs */
+        label {
+            display: block;
+            font-size: 1.1em;
+            margin-top: 1em;
+            color: #ddd;
+            text-align: left;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin-top: 5px;
+            font-size: 1em;
+        }
+
+        /* Button styles */
+        .create-button {
+            margin-top: 20px;
+            background-color: #FF6F61;
+            color: #333;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            width: 100%;
+        }
+
+        .create-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Create Your Quiz</h1>
+    <form action="/user/quiz/start" method="get"> <!-- Updated form action and method -->
+        <!-- Number of Questions -->
+        <label for="questions">Number of Questions:</label>
+        <input type="number" id="questions" name="questions" min="1" max="50" required>
+
+        <!-- Difficulty Level -->
+        <label for="difficulty">Difficulty Level:</label>
+        <select id="difficulty" name="difficulty" required>
+            <option value="">Select Difficulty</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
+
+        <!-- Category -->
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+            <option value="">Select Category</option>
+            <option value="Java">Java</option>
+            <option value="Python">Python</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="HTML">HTML</option>
+        </select>
+
+        <!-- Submit button -->
+        <button type="submit" class="create-button">Create Quiz</button>
+    </form>
+</div>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function(event) {
+        const questions = parseInt(document.getElementById("questions").value, 10);
+        const category = document.getElementById("category").value;
+
+        let maxQuestions;
+        switch (category) {
+            case "Java":
+                maxQuestions = 20;
+                break;
+            case "Python":
+                maxQuestions = 30;
+                break;
+            case "JavaScript":
+                maxQuestions = 25;
+                break;
+            case "HTML":
+                maxQuestions = 15;
+                break;
+            default:
+                maxQuestions = 50; // Default max for unspecified categories
+        }
+
+        if (questions > maxQuestions) {
+            alert(`For ${category}, please select ${maxQuestions} or fewer questions.`);
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+</script>
+</body>
+</html>
